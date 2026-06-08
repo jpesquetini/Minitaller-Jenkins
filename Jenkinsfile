@@ -34,7 +34,7 @@ pipeline {
         checkout scm
         script {
           env.GIT_COMMIT_SHORT = sh(script: 'git rev-parse --short=7 HEAD', returnStdout: true).trim()
-          env.CURRENT_BRANCH = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+          env.CURRENT_BRANCH = env.GIT_BRANCH.replaceFirst('origin/', '')
         }
         stash(
           name: 'source-code',
